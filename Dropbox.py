@@ -62,31 +62,24 @@ class Dropbox:
         return auth_code
 
     def do_oauth(self): #TODO AQUI HAY ALGO MAL
-        print("\nObtaining OAuth  access tokens")
-        # Authorization
-        print("\tStep 2: Send a request to Dropbox's OAuth 2.0 server")
-        base_uri = 'https://www.dropbox.com/oauth2/authorize'
-        goiburuak = {'Host': 'www.dropbox.com'}
-        datuak = {'response_type': 'code',
-                  'client_id': app_key,
-                  'redirect_uri': redirect_uri,
-                  'scope': 'files.content.read'} #NO LO PONE
+        print('Baimena lortzen...')
+        base_uri = "https://www.dropbox.com/oauth2/authorize"
+        datuak = {'client_id': app_key,
+                  'redirect_uri': redirect_uri,  # Dirección IP de bucle invertido
+                  'response_type': 'code', }
+
         datuak_kodifikatuta = urllib.parse.urlencode(datuak)
-        step2_uri = base_uri + '?' + datuak_kodifikatuta
-        print("\t" + step2_uri)
-        webbrowser.open_new(step2_uri)
+        auth_uri = base_uri + '?' + datuak_kodifikatuta
 
-        ###############################################################################################################
-
-        print("\n\tStep 3: DropBox prompts user for consent")
+        print("\n\t Web nabigatzailea irekitzen")
+        webbrowser.open_new(auth_uri)  # eskera nabigatzailean zabaldu (Get metodoa modu lehenetsian erabiliko da)
 
         auth_code = self.local_server()
 
-        ###############################################################################################################
         # Exchange authorization code for access token
-        print("\n\tStep 5: Exchange authorization code for refresh and access tokens")
+        print('Acess token-a lortzen...')
 
-        uri = 'https://api.dropboxapi.com/oauth2/token'
+        uri = "https://api.dropboxapi.com/oauth2/token"
         goiburuak = {'Host': 'api.dropboxapi.com',
                      'Content-Type': 'application/x-www-form-urlencoded'}
         datuak = {'code': auth_code,
@@ -94,20 +87,25 @@ class Dropbox:
                   'redirect_uri': redirect_uri,
                   'client_id': app_key,
                   'client_secret': app_secret}
+
         datuak_kodifikatuta = urllib.parse.urlencode(datuak)
         goiburuak['Content-Length'] = str(len(datuak_kodifikatuta))
-        erantzuna = requests.post(uri, headers=goiburuak, data=datuak, allow_redirects=False) #TODO SE ME HABIA OLVIDADO EL GOIBURU
+        erantzuna = requests.post(uri, headers=goiburuak, data=datuak_kodifikatuta,
+                                  allow_redirects=False)  # eskaera ez dugu nabigatzaileanegingo, gure programan egingo da
         status = erantzuna.status_code
-        print(status)
-        # Google responds to this request by returning a JSON object
-        # that contains a short-lived access token and a refresh token.
+        print("\t\tStatus: " + str(status))
 
-        edukia = erantzuna.text #TODO EN VEZ DE CONTENT
-        print("\nEdukia\n")
-        print(edukia)
+        # This endpoint returns a JSON-encoded dictionary
+        # that contains access_token -> The access token to be used to call the Dropbox API. denbora mugatu batean erabili ahalko da (expire_in definitzen den demboran)
+        #  refresh token -> this token is long-lived and won't expire automatically. It can be stored and re-used multiple times.
+
+        edukia = erantzuna.text
+        print("\t\tEdukia:")
+        print("\n" + edukia)
         edukia_json = json.loads(edukia)
         access_token = edukia_json['access_token']
-        print("\nAccess token: " + access_token)
+        print("\naccess_token: " + access_token)
+        print("Autentifikazio fluxua amaitu da.")
 
         self._access_token = access_token
         self._root.destroy()
