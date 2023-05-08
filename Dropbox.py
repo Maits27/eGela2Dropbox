@@ -62,24 +62,31 @@ class Dropbox:
         return auth_code
 
     def do_oauth(self): #TODO AQUI HAY ALGO MAL
-        print('Baimena lortzen...')
-        base_uri = "https://www.dropbox.com/oauth2/authorize"
-        datuak = {'client_id': app_key,
-                  'redirect_uri': redirect_uri,  # Dirección IP de bucle invertido
-                  'response_type': 'code', }
-
+        print("\nObtaining OAuth  access tokens")
+        # Authorization
+        print("\tStep 2: Send a request to Dropbox's OAuth 2.0 server")
+        base_uri = 'https://www.dropbox.com/oauth2/authorize'
+        goiburuak = {'Host': 'www.dropbox.com'}
+        datuak = {'response_type': 'code',
+                  'client_id': app_key,
+                  'redirect_uri': redirect_uri,
+                  'scope': 'files.content.read'} #NO LO PONE
         datuak_kodifikatuta = urllib.parse.urlencode(datuak)
-        auth_uri = base_uri + '?' + datuak_kodifikatuta
+        step2_uri = base_uri + '?' + datuak_kodifikatuta
+        print("\t" + step2_uri)
+        webbrowser.open_new(step2_uri)
 
-        print("\n\t Web nabigatzailea irekitzen")
-        webbrowser.open_new(auth_uri)  # eskera nabigatzailean zabaldu (Get metodoa modu lehenetsian erabiliko da)
+        ###############################################################################################################
+
+        print("\n\tStep 3: DropBox prompts user for consent")
 
         auth_code = self.local_server()
 
+        ###############################################################################################################
         # Exchange authorization code for access token
-        print('Acess token-a lortzen...')
+        print("\n\tStep 5: Exchange authorization code for refresh and access tokens")
 
-        uri = "https://api.dropboxapi.com/oauth2/token"
+        uri = 'https://api.dropboxapi.com/oauth2/token'
         goiburuak = {'Host': 'api.dropboxapi.com',
                      'Content-Type': 'application/x-www-form-urlencoded'}
         datuak = {'code': auth_code,
@@ -87,25 +94,20 @@ class Dropbox:
                   'redirect_uri': redirect_uri,
                   'client_id': app_key,
                   'client_secret': app_secret}
-
         datuak_kodifikatuta = urllib.parse.urlencode(datuak)
         goiburuak['Content-Length'] = str(len(datuak_kodifikatuta))
-        erantzuna = requests.post(uri, headers=goiburuak, data=datuak_kodifikatuta,
-                                  allow_redirects=False)  # eskaera ez dugu nabigatzaileanegingo, gure programan egingo da
+        erantzuna = requests.post(uri, headers=goiburuak, data=datuak, allow_redirects=False) #TODO SE ME HABIA OLVIDADO EL GOIBURU
         status = erantzuna.status_code
-        print("\t\tStatus: " + str(status))
+        print(status)
+        # Google responds to this request by returning a JSON object
+        # that contains a short-lived access token and a refresh token.
 
-        # This endpoint returns a JSON-encoded dictionary
-        # that contains access_token -> The access token to be used to call the Dropbox API. denbora mugatu batean erabili ahalko da (expire_in definitzen den demboran)
-        #  refresh token -> this token is long-lived and won't expire automatically. It can be stored and re-used multiple times.
-
-        edukia = erantzuna.text
-        print("\t\tEdukia:")
-        print("\n" + edukia)
+        edukia = erantzuna.text #TODO EN VEZ DE CONTENT
+        print("\nEdukia\n")
+        print(edukia)
         edukia_json = json.loads(edukia)
         access_token = edukia_json['access_token']
-        print("\naccess_token: " + access_token)
-        print("Autentifikazio fluxua amaitu da.")
+        print("\nAccess token: " + access_token)
 
         self._access_token = access_token
         self._root.destroy()
@@ -163,11 +165,12 @@ class Dropbox:
         print("\n/upload " + file_path)
         # sartu kodea hemen
         uri = 'https://content.dropboxapi.com/2/files/upload'
-        parameters = {"autorename": False,
+        parameters = {"autorename": True, #estaba en false
                     "mode": "add",
                     "mute": False,
                     "path": file_path,
                     "strict_conflict": False}
+
         json_datuak = json.dumps(parameters)
         goiburuak = {'Host': 'api.dropboxapi.com',
                      'Dropbox-API-Arg': json_datuak,
