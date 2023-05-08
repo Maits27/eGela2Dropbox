@@ -35,24 +35,24 @@ class Dropbox:
         # ondorengo lerroan programa gelditzen da zerbitzariak 302 eskaera jasotzen duen arte
         client_connection, client_address = server_socket.accept()
         # nabitzailetik 302 eskaera jaso
-        eskaera = client_connection.recv(1024)
+        eskaera = client_connection.recv(1024).decode()
         print("\t\tNabigatzailetik ondorengo eskaera jaso da:")
         print(eskaera)  # zerbitzariak jasotzen duen eskaera
 
         # eskaeran "auth_code"-a bilatu
-        lehenengo_lerroa = eskaera.decode("utf8").split('\n')[0]
+        lehenengo_lerroa = eskaera.split('\n')[0]  # eskaera.decode("utf8").split('\n')[0]
         aux_auth_code = lehenengo_lerroa.split(' ')[1]
         auth_code = aux_auth_code[7:].split('&')[0]
         print("auth_code: " + auth_code)
 
-        # erabiltzaileari erantzun bat bueltatu
+        #########################################################################33
         http_response = "HTTP/1.1 200 OK\r\n\r\n" \
                         "<html>" \
                         "<head><title>Proba</title></head>" \
                         "<body>The authentication flow has completed. Close this window.</body>" \
                         "</html>"
 
-        client_connection.sendall(http_response.encode(encoding="utf8"))
+        client_connection.sendall(str.encode(http_response))  # client_connection.sendall(http_response.encode(encoding="utf8"))
         client_connection.close()
         server_socket.close()
 
@@ -74,9 +74,9 @@ class Dropbox:
         auth_code = self.local_server()
 
         # Exchange authorization code for access token
-        print('Acess token-a lortzen...')
+        print("\n\tStep 5: Exchange authorization code for refresh and access tokens")
 
-        uri = "https://api.dropboxapi.com/oauth2/token"
+        uri = 'https://api.dropboxapi.com/oauth2/token'
         goiburuak = {'Host': 'api.dropboxapi.com',
                      'Content-Type': 'application/x-www-form-urlencoded'}
         datuak = {'code': auth_code,
