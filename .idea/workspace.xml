@@ -4,8 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7d79ad3-e979-4ee9-9a1a-fea693ec08eb" name="Changes" comment="funciona + nago">
+    <list default="true" id="b7d79ad3-e979-4ee9-9a1a-fea693ec08eb" name="Changes" comment="funciona mio">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dropbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dropbox.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SW_2022-23_Planificacion.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WS_2023-01-26_PA_Aurkezpena.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WS_2023-01-27_M_1_Software-aren_instalazioa.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WS_2023-01-27_M_2_Python_PyCharm_tutoriala.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WS_2023-02-24_M_Software-aren_instalazioa.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/eGela.py" beforeDir="false" afterPath="$PROJECT_DIR$/eGela.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zeregina4.py" beforeDir="false" afterPath="$PROJECT_DIR$/zeregina4.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +119,9 @@
       <workItem from="1683369073268" duration="12370000" />
       <workItem from="1683397389441" duration="262000" />
       <workItem from="1683398792717" duration="70000" />
-      <workItem from="1683546836016" duration="6578000" />
+      <workItem from="1683546836016" duration="6669000" />
+      <workItem from="1683562604503" duration="770000" />
+      <workItem from="1683629657969" duration="11127000" />
     </task>
     <task id="LOCAL-00001" summary="change">
       <created>1683552038488</created>
@@ -134,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683554038059</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="funciona mio">
+      <created>1683554358546</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683554358546</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,7 +161,8 @@
     <MESSAGE value="change" />
     <MESSAGE value="change1" />
     <MESSAGE value="funciona + nago" />
-    <option name="LAST_COMMIT_MESSAGE" value="funciona + nago" />
+    <MESSAGE value="funciona mio" />
+    <option name="LAST_COMMIT_MESSAGE" value="funciona mio" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

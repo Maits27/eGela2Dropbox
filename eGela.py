@@ -267,7 +267,10 @@ class eGela:
         response = requests.request(metodoa, pdf_file, headers=goiburua, data=edukia,
                                     allow_redirects=False)
 
-        file = open(pdf_name , "wb")
+        if not os.path.exists("pdf"):
+            os.mkdir("pdf")
+
+        file = open("./pdf/" + pdf_name , "wb")
         file.write(response.content)
         file.close()
-        return pdf_name, pdf_file
+        return pdf_name, "./pdf/"+pdf_file

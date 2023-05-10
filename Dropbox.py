@@ -225,3 +225,101 @@ class Dropbox:
             print('\n KARPETA SORTU DA')
             print('###############################################################################')
 
+
+
+
+
+#################################### ALDERDI GEHIGARRIAK ################################################
+    def download_zip(self, path):
+        print("\n/download_zip " + path)
+        uri = 'https://content.dropboxapi.com/2/files/download_zip'
+        parameters = {"path": path}
+        data = json.dumps(parameters)
+        goiburuak = {'Host': 'content.dropboxapi.com',
+                     'Authorization': 'Bearer ' + self._access_token,
+                     'Dropbox-API-Arg': data}
+        response = requests.post(uri, headers=goiburuak, data=data, allow_redirects=False)
+
+        status = response.status_code
+        edukia = response.content
+        print("\nStatus: " + str(status) + " " + response.reason)
+        if status == 200:
+            print('###############################################################################')
+            print('\n ZIP-A JEITSI DA')
+            print('###############################################################################')
+
+
+    def copy(self, fromPath, toPath):
+        print("\n/copy_file from " + fromPath + " to " + toPath)
+        uri = 'https://api.dropboxapi.com/2/files/copy_v2'
+        parameters = {"allow_ownership_transfer": False,
+                        "allow_shared_folder": False,
+                        "autorename": False,
+                        "from_path": fromPath,
+                        "to_path": toPath}
+        data = json.dumps(parameters)
+        goiburuak = {'Host': 'api.dropboxapi.com',
+                     'Authorization': 'Bearer ' + self._access_token,
+                     'Content-Type': 'application/json'}
+        response = requests.post(uri, headers=goiburuak, data=data, allow_redirects=False)
+
+        status = response.status_code
+        edukia = response.content
+        print("\nStatus: " + str(status) + " " + response.reason)
+        if status == 200:
+            print('###############################################################################')
+            print('\n FITXATEGIA KOPIATU DA')
+            print('###############################################################################')
+        elif status == 409:
+            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            print('ERRORE BAT SUERTATU DA, KONPROBATU PATH-A ONDO JARRITA DAGOELA (EMANDAKO FORMATOAN)'
+                  '\n BALITEKE ERE KOPIATZEKO FITXATEGIRIK HAUTATU EZ IZANA')
+            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        return status
+
+    def move(self, fromPath, toPath):
+        print("\n/move_file from " + fromPath + " to " + toPath)
+        uri = 'https://api.dropboxapi.com/2/files/move_v2'
+        parameters = {"allow_ownership_transfer": False,
+                        "allow_shared_folder": False,
+                        "autorename": False,
+                        "from_path": fromPath,
+                        "to_path": toPath}
+        data = json.dumps(parameters)
+        goiburuak = {'Host': 'api.dropboxapi.com',
+                     'Authorization': 'Bearer ' + self._access_token,
+                     'Content-Type': 'application/json'}
+        response = requests.post(uri, headers=goiburuak, data=data, allow_redirects=False)
+
+        status = response.status_code
+        edukia = response.content
+        print("\nStatus: " + str(status) + " " + response.reason)
+        if status == 200:
+            print('###############################################################################')
+            print('\n FITXATEGIA MUGITU DA')
+            print('###############################################################################')
+        elif status == 409:
+            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            print('ERRORE BAT SUERTATU DA, KONPROBATU PATH-A ONDO JARRITA DAGOELA (EMANDAKO FORMATOAN)'
+                  '\n BALITEKE ERE MUGITZEKO FITXATEGIRIK HAUTATU EZ IZANA')
+            print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        return status
+
+    def export(self, path): #TODO
+        print("\n/export " + path)
+        uri = 'https://content.dropboxapi.com/2/files/export'
+        parameters = {"path": path}
+        data = json.dumps(parameters)
+        goiburuak = {'Host': 'content.dropboxapi.com',
+                     'Authorization': 'Bearer ' + self._access_token,
+                     'Dropbox-API-Arg': data}
+        response = requests.post(uri, headers=goiburuak, data=data, allow_redirects=False)
+
+        status = response.status_code
+        edukia = response.content
+        print("\nStatus: " + str(status) + " " + response.reason)
+        if status == 200:
+            print('###############################################################################')
+            print('\n EXPORTATU DA')
+            print('###############################################################################')
+
