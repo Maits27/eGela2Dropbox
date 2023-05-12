@@ -7,12 +7,6 @@
     <list default="true" id="b7d79ad3-e979-4ee9-9a1a-fea693ec08eb" name="Changes" comment="funciona mio">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dropbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dropbox.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SW_2022-23_Planificacion.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WS_2023-01-26_PA_Aurkezpena.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WS_2023-01-27_M_1_Software-aren_instalazioa.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WS_2023-01-27_M_2_Python_PyCharm_tutoriala.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WS_2023-02-24_M_Software-aren_instalazioa.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eGela.py" beforeDir="false" afterPath="$PROJECT_DIR$/eGela.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zeregina4.py" beforeDir="false" afterPath="$PROJECT_DIR$/zeregina4.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,19 +23,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/maiti/PycharmProjects/eGela2Dropbox_ikasleak",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/maiti/PycharmProjects/eGela2Dropbox&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\maiti\PycharmProjects\eGela2Dropbox_ikasleak" />
@@ -94,8 +88,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Dropbox" />
         <item itemvalue="Python.zeregina4" />
+        <item itemvalue="Python.Dropbox" />
       </list>
     </recent_temporary>
   </component>
@@ -122,6 +116,12 @@
       <workItem from="1683546836016" duration="6669000" />
       <workItem from="1683562604503" duration="770000" />
       <workItem from="1683629657969" duration="11127000" />
+      <workItem from="1683702427169" duration="184000" />
+      <workItem from="1683703225868" duration="896000" />
+      <workItem from="1683784293218" duration="3203000" />
+      <workItem from="1683791061647" duration="628000" />
+      <workItem from="1683835939279" duration="1130000" />
+      <workItem from="1683878378687" duration="307000" />
     </task>
     <task id="LOCAL-00001" summary="change">
       <created>1683552038488</created>
@@ -151,11 +151,29 @@
       <option name="project" value="LOCAL" />
       <updated>1683554358546</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="funciona mio">
+      <created>1683702446182</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1683702446182</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="change" />
@@ -177,6 +195,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/eGela2Dropbox$Dropbox.coverage" NAME="Dropbox Coverage Results" MODIFIED="1683394993758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/eGela2Dropbox$zeregina4.coverage" NAME="zeregina4 Coverage Results" MODIFIED="1683388820217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/eGela2Dropbox$zeregina4.coverage" NAME="zeregina4 Coverage Results" MODIFIED="1683836953395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

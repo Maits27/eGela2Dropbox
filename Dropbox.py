@@ -230,6 +230,27 @@ class Dropbox:
 
 
 #################################### ALDERDI GEHIGARRIAK ################################################
+    def download(self, path):  # TODO
+        print("\n/download " + path)
+        uri = 'https://content.dropboxapi.com/2/files/download'
+        parameters = {'path': path}
+        data = json.dumps(parameters)
+        goiburuak = {'Host': 'content.dropboxapi.com',
+                     'Authorization': 'Bearer ' + self._access_token,
+                     'Dropbox-API-Arg': data}
+        response = requests.post(uri, headers=goiburuak, data=data, allow_redirects=False)
+
+        status = response.status_code
+        edukia = response.content
+        print("\nStatus: " + str(status) + " " + response.reason)
+        print(edukia)
+        if status == 200:
+            with open(path.split('/')[-1], 'wb') as exp_file:
+                exp_file.write(edukia)
+            print('###############################################################################')
+            print('\n GORDE DA URL-A')
+            print('###############################################################################')
+
     def download_zip(self, path):
         print("\n/download_zip " + path)
         uri = 'https://content.dropboxapi.com/2/files/download_zip'
@@ -244,6 +265,9 @@ class Dropbox:
         edukia = response.content
         print("\nStatus: " + str(status) + " " + response.reason)
         if status == 200:
+            zip_fitxategia = open(path.split('/')[-1] + '.zip', 'wb')
+            zip_fitxategia.write(edukia)
+            zip_fitxategia.close()
             print('###############################################################################')
             print('\n ZIP-A JEITSI DA')
             print('###############################################################################')
@@ -305,21 +329,33 @@ class Dropbox:
             print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         return status
 
-    def export(self, path): #TODO
-        print("\n/export " + path)
-        uri = 'https://content.dropboxapi.com/2/files/export'
-        parameters = {"path": path}
+
+    def add_file_member(self, path, email): #TODO
+        print("\n/add_file_member " + path)
+        uri = 'https://api.dropboxapi.com/2/sharing/add_file_member'
+        parameters = {"access_level": "viewer",
+                        "add_message_as_comment": False,
+                        "custom_message": "Here is my doc:",
+                        "file": path,
+                        "members": [
+                            {
+                                ".tag": "email",
+                                "email": email
+                            }
+                        ],
+                        "quiet": False}
         data = json.dumps(parameters)
-        goiburuak = {'Host': 'content.dropboxapi.com',
+        goiburuak = {'Host': 'api.dropboxapi.com',
                      'Authorization': 'Bearer ' + self._access_token,
-                     'Dropbox-API-Arg': data}
+                     'Content-Type': 'application/json'}
         response = requests.post(uri, headers=goiburuak, data=data, allow_redirects=False)
 
         status = response.status_code
         edukia = response.content
         print("\nStatus: " + str(status) + " " + response.reason)
+        print(edukia)
         if status == 200:
             print('###############################################################################')
-            print('\n EXPORTATU DA')
+            print('PARTEKATU DA FITXATEGIA')
             print('###############################################################################')
 
