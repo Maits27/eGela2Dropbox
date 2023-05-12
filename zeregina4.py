@@ -109,26 +109,8 @@ def create_folder():
 ##########################################################################################################
 
 ######################################## NIRE KODEA ######################################################
-def download_zip():
-    print("Download zip")
-
-    status = 200
-    for each in selected_items2:
-        if status == 200:
-            name = dropbox._files[each]['name']
-            if dropbox._path == "/":
-                path = "/" + name
-            else:
-                path = dropbox._path + "/" + name
-            status = dropbox.download_zip(path)
-
-        time.sleep(0.1)
-
-    dropbox.list_folder(msg_listbox2)
-    msg_listbox2.yview(tk.END)
 
 def copy_file():
-    dropbox._root.destroy()
     print("Copy")
 
     page = tk.Toplevel()
@@ -141,6 +123,9 @@ def copy_file():
     label.pack()
     label2 = tk.Label(page, text="(/path/to/folder/)")
     label2.pack()
+    label3 = tk.Label(page, text="Izena duen berdina izango da. \n Aldatu nahi izatekotan, azken / ostean zeozer gehitu."
+                                 "\n(zuen izenaren hasieran jarriko da)")
+    label3.pack()
     entry_field = tk.Entry(page)
     entry_field.pack()
     def copy():
@@ -179,7 +164,6 @@ def copy_file():
 
 def move_file():
     print("Move")
-    dropbox._root.destroy()
 
     page = tk.Toplevel()
     page.geometry('300x200')
@@ -240,9 +224,13 @@ def download():
             name = dropbox._files[each]['name']
             if dropbox._path == "/":
                 path = "/" + name
+                status = dropbox.download(path)
             else:
                 path = dropbox._path + "/" + name
-            status = dropbox.download(path)
+                status = dropbox.download(path)
+            if str(dropbox._files[each]['.tag']) == "folder":
+                print("Download zip")
+                status = dropbox.download_zip(path)
         progress += progress_step
         progress_var.set(progress)
         progress_bar.update()
@@ -256,7 +244,6 @@ def download():
 
 def add_file_member():
     print("Add file member")
-    dropbox._root.destroy()
 
     page = tk.Toplevel()
     page.geometry('300x200')
@@ -264,10 +251,10 @@ def add_file_member():
     page.iconbitmap('./favicon.ico')
     helper.center(page)
 
-    label = tk.Label(page, text="Write the email to share with the selected file.")
+    label = tk.Label(page, text="Write the email to share with the selected file.\n")
     label.pack()
-    #label2 = tk.Label(page, text="(/path/to/folder/)")
-    #label2.pack()
+    label2 = tk.Label(page, text="JUST FILES!\n")
+    label2.pack()
     entry_field = tk.Entry(page)
     entry_field.pack()
 
@@ -441,7 +428,7 @@ button3.pack(padx=2, pady=2)
 frame2.grid(column=3, row=1, ipadx=10, ipady=10)
 
 #Sortutako botoi extrak
-button4 = tk.Button(frame2, borderwidth=4, text="Download zip", width=10, pady=8, command=download_zip)
+button4 = tk.Button(frame2, borderwidth=4, text="Download", width=10, pady=8, command=download)
 button4.pack(padx=2, pady=2)
 frame2.grid(column=3, row=1, ipadx=10, ipady=10)
 button5 = tk.Button(frame2, borderwidth=4, text="Copy file", width=10, pady=8, command=copy_file)

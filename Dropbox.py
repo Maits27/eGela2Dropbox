@@ -136,9 +136,6 @@ class Dropbox:
 
         edukia = response.content
         edukia_json = json.loads(edukia)
-        print('###############################################################################')
-        print('\n FITXATEGIAK LISTAN SARTUKO DIRA')
-        print('###############################################################################')
 
         edukia_json_entries = edukia_json['entries']
         #for entry in edukia_json['entries']:
@@ -151,10 +148,12 @@ class Dropbox:
             self.list_folder(msg_listbox, edukia_json['cursor'], edukia_json_entries)
         else:
             # sartu kodea hemen
-            print("######################### NO MORE FILES ######################### ")
-            print("DAUDEN FITXATEGI KOPURUA: " + str(self._fkop))
             self._fkop=0
             self._files = helper.update_listbox2(msg_listbox, self._path, edukia_json_entries)
+
+        print('###############################################################################')
+        print('FITXATEGIAK LISTAN SARTU DIRA')
+        print('###############################################################################')
 
     def transfer_file(self, file_path, file_data):
         print("\n/upload " + file_path)
@@ -179,7 +178,7 @@ class Dropbox:
         print("\nStatus: " + str(status) + " " + response.reason)
         if status == 200:
             print('###############################################################################')
-            print('\n FITXATEGIAK TRANSFERITU DIRA')
+            print('FITXATEGIAK TRANSFERITU DIRA')
             print('###############################################################################')
 
 
@@ -200,7 +199,7 @@ class Dropbox:
         print("\nStatus: " + str(status) + " " + response.reason)
         if status == 200:
             print('###############################################################################')
-            print('\n FITXATEGIA EZABATU DA')
+            print('FITXATEGIA EZABATU DA')
             print('###############################################################################')
 
 
@@ -222,7 +221,7 @@ class Dropbox:
         print("\nStatus: " + str(status) + " " + response.reason)
         if status == 200:
             print('###############################################################################')
-            print('\n KARPETA SORTU DA')
+            print('KARPETA SORTU DA')
             print('###############################################################################')
 
 
@@ -230,7 +229,7 @@ class Dropbox:
 
 
 #################################### ALDERDI GEHIGARRIAK ################################################
-    def download(self, path):  # TODO
+    def download(self, path):
         print("\n/download " + path)
         uri = 'https://content.dropboxapi.com/2/files/download'
         parameters = {'path': path}
@@ -248,7 +247,11 @@ class Dropbox:
             with open(path.split('/')[-1], 'wb') as exp_file:
                 exp_file.write(edukia)
             print('###############################################################################')
-            print('\n GORDE DA URL-A')
+            print('DESKARGATU DA FITXATEGIA')
+            print('###############################################################################')
+        elif status == 409:
+            print('###############################################################################')
+            print('EZ DA FITXATEGIA')
             print('###############################################################################')
 
     def download_zip(self, path):
@@ -269,7 +272,7 @@ class Dropbox:
             zip_fitxategia.write(edukia)
             zip_fitxategia.close()
             print('###############################################################################')
-            print('\n ZIP-A JEITSI DA')
+            print('KARPETAREN ZIP-A JEITSI DA')
             print('###############################################################################')
 
 
@@ -288,11 +291,10 @@ class Dropbox:
         response = requests.post(uri, headers=goiburuak, data=data, allow_redirects=False)
 
         status = response.status_code
-        edukia = response.content
         print("\nStatus: " + str(status) + " " + response.reason)
         if status == 200:
             print('###############################################################################')
-            print('\n FITXATEGIA KOPIATU DA')
+            print('FITXATEGIA KOPIATU DA')
             print('###############################################################################')
         elif status == 409:
             print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
@@ -320,7 +322,7 @@ class Dropbox:
         print("\nStatus: " + str(status) + " " + response.reason)
         if status == 200:
             print('###############################################################################')
-            print('\n FITXATEGIA MUGITU DA')
+            print('FITXATEGIA MUGITU DA')
             print('###############################################################################')
         elif status == 409:
             print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')

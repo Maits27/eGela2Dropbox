@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7d79ad3-e979-4ee9-9a1a-fea693ec08eb" name="Changes" comment="funciona mio">
+    <list default="true" id="b7d79ad3-e979-4ee9-9a1a-fea693ec08eb" name="Changes" comment="share">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dropbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dropbox.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zeregina4.py" beforeDir="false" afterPath="$PROJECT_DIR$/zeregina4.py" afterDir="false" />
@@ -121,7 +121,8 @@
       <workItem from="1683784293218" duration="3203000" />
       <workItem from="1683791061647" duration="628000" />
       <workItem from="1683835939279" duration="1130000" />
-      <workItem from="1683878378687" duration="307000" />
+      <workItem from="1683878378687" duration="4638000" />
+      <workItem from="1683895951152" duration="1056000" />
     </task>
     <task id="LOCAL-00001" summary="change">
       <created>1683552038488</created>
@@ -158,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683702446182</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="share">
+      <created>1683880168968</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1683880168968</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,21 +188,11 @@
     <MESSAGE value="change1" />
     <MESSAGE value="funciona + nago" />
     <MESSAGE value="funciona mio" />
-    <option name="LAST_COMMIT_MESSAGE" value="funciona mio" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/eGela.py</url>
-          <line>72</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="share" />
+    <option name="LAST_COMMIT_MESSAGE" value="share" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/eGela2Dropbox$Dropbox.coverage" NAME="Dropbox Coverage Results" MODIFIED="1683394993758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/eGela2Dropbox$zeregina4.coverage" NAME="zeregina4 Coverage Results" MODIFIED="1683836953395" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/eGela2Dropbox$zeregina4.coverage" NAME="zeregina4 Coverage Results" MODIFIED="1683896065827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
