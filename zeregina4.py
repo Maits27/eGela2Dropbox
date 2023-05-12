@@ -124,7 +124,7 @@ def copy_file():
     label2 = tk.Label(page, text="(/path/to/folder/)")
     label2.pack()
     label3 = tk.Label(page, text="Izena duen berdina izango da. \n Aldatu nahi izatekotan, azken / ostean zeozer gehitu."
-                                 "\n(zuen izenaren hasieran jarriko da)")
+                                 "\n(duen izenaren hasieran jarriko da)")
     label3.pack()
     entry_field = tk.Entry(page)
     entry_field.pack()
@@ -175,6 +175,10 @@ def move_file():
     label.pack()
     label2 = tk.Label(page, text="(/path/to/folder/)")
     label2.pack()
+    label3 = tk.Label(page,
+                      text="Izena duen berdina izango da. \n Aldatu nahi izatekotan, azken / ostean zeozer gehitu."
+                           "\n(duen izenaren hasieran jarriko da)")
+    label3.pack()
     entry_field = tk.Entry(page)
     entry_field.pack()
 
