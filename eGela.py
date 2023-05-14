@@ -23,6 +23,8 @@ class eGela:
 
     def check_credentials(self, username, password, event=None):
 
+        global LOGIN_EGIAZTAPENA
+        LOGIN_EGIAZTAPENA = False
         popup, progress_var, progress_bar = helper.progress("check_credentials", "Logging into eGela...")
         progress = 0
         progress_var.set(progress)
@@ -149,8 +151,8 @@ class eGela:
         kode = str(response.status_code)
         if int(kode) // 100 == 3:
             self._uri = response.headers['Location']
-        elif int(kode)==200:
-            LOGIN_EGIAZTAPENA=True #TODO ?????????????
+        elif int(kode) == 200:
+            LOGIN_EGIAZTAPENA = True
 
         try:
             self._cookiea = response.headers['Set-Cookie'].split(";")[0]
@@ -167,13 +169,10 @@ class eGela:
 
         print("\n##### LOGIN EGIAZTAPENA #####")
         if LOGIN_EGIAZTAPENA:
-            # sartu kodea hemen
-            print("\n\n#########################Egiaztapena ondo burutu da###########################")#TODO ?????????????
-            self._login=1
+            print("\n\n#########################Egiaztapena ondo burutu da###########################")
+            self._login = 1
             # KLASEAREN ATRIBUTUAK EGUNERATU
             self._root.destroy()
-            # sartu kodea hemen
-            # #TODO ?????????????
 
         else:
             tkMessageBox.showinfo("Alert Message", "Login incorrect!")
@@ -225,7 +224,7 @@ class eGela:
         orria = BeautifulSoup(response.content, 'html.parser')
         link_zerrenda = orria.find_all('img', {'class': 'iconlarge activityicon'})
 
-        progress_step = float(100.0 / len(link_zerrenda)) #Antes había len(self._refs)
+        progress_step = float(100.0 / len(link_zerrenda))
 
         for link in link_zerrenda:
             if '/pdf' in link['src']:
@@ -249,7 +248,6 @@ class eGela:
             progress_bar.update()
             time.sleep(0.1)
 
-        #print(self._refs)
         popup.destroy()
 
         return self._refs
@@ -258,7 +256,7 @@ class eGela:
         print("##### PDF-a deskargatzen... #####")
         pdf_file = self._refs[selection]['pdf_link']
         pdf_name = self._refs[selection]['pdf_name']
-        print("Deskargatzen ari den PDF-aren link-a:\n" + self._refs[selection]['pdf_link'])
+        print("Deskargatzen ari den PDF-aren link-a:\n" + pdf_file)
 
         metodoa = 'GET'
         goiburua = {'Host': pdf_file.split('/')[2], 'Cookie': self._cookiea}
@@ -270,7 +268,7 @@ class eGela:
         if not os.path.exists("pdf"):
             os.mkdir("pdf")
 
-        file = open("./pdf/" + pdf_name , "wb")
+        file = open("./pdf/" + pdf_name, "wb")
         file.write(response.content)
         file.close()
         return pdf_name, "./pdf/"+pdf_file

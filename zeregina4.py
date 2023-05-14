@@ -1,3 +1,4 @@
+import tkinter.messagebox
 import tkinter as tk
 import os
 import eGela
@@ -123,22 +124,23 @@ def copy_file():
     label.pack()
     label2 = tk.Label(page, text="(/path/to/folder/)")
     label2.pack()
-    label3 = tk.Label(page, text="Izena duen berdina izango da. \n Aldatu nahi izatekotan, azken / ostean zeozer gehitu."
-                                 "\n(duen izenaren hasieran jarriko da)")
+    label3 = tk.Label(page, text="\nThe name will remain the same unless \n you add something after the last '/'."
+                                 "\nWhat you write after that will be added \n at the beginning of the filename.")
     label3.pack()
     entry_field = tk.Entry(page)
     entry_field.pack()
     def copy():
         folder_path = entry_field.get()
+        dropbox._root.destroy()
+        status = 200
+        if selected_items2 is not None:
+            popup, progress_var, progress_bar = helper.progress("copy_file", "Copying files...")
+            progress = 0
+            progress_var.set(progress)
+            progress_bar.update()
+            progress_step = float(100.0 / len(selected_items2))
 
-        popup, progress_var, progress_bar = helper.progress("copy_file", "Copying files...")
-        progress = 0
-        progress_var.set(progress)
-        progress_bar.update()
-        progress_step = float(100.0 / len(selected_items2))
-        status=200
-        for each in selected_items2:
-            if status==200:
+            for each in selected_items2:
                 name = dropbox._files[each]['name']
                 if dropbox._path == "/":
                     path = "/" + name
@@ -146,16 +148,20 @@ def copy_file():
                     path = dropbox._path + "/" + name
                 status = dropbox.copy(path, folder_path + name)
 
-            progress += progress_step
-            progress_var.set(progress)
-            progress_bar.update()
-            newroot.update()
+                progress += progress_step
+                progress_var.set(progress)
+                progress_bar.update()
+                newroot.update()
 
-            time.sleep(0.1)
+                time.sleep(0.1)
+        else:
+            tkinter.messagebox.showinfo('ERROR', 'Select at least one file.')
 
         popup.destroy()
         dropbox.list_folder(msg_listbox2)
         msg_listbox2.yview(tk.END)
+        if status == 409:
+            tkinter.messagebox.showinfo('ERROR', 'File already exists in selected directory.')
 
     send_button = tk.Button(page, text="Send", command=copy)
     send_button.pack()
@@ -175,40 +181,45 @@ def move_file():
     label.pack()
     label2 = tk.Label(page, text="(/path/to/folder/)")
     label2.pack()
-    label3 = tk.Label(page,
-                      text="Izena duen berdina izango da. \n Aldatu nahi izatekotan, azken / ostean zeozer gehitu."
-                           "\n(duen izenaren hasieran jarriko da)")
+    label3 = tk.Label(page, text="\nThe name will remain the same unless \n you add something after the last '/'."
+                                 "\nWhat you write after that will be added \n at the beginning of the filename.")
     label3.pack()
     entry_field = tk.Entry(page)
     entry_field.pack()
 
     def move():
         folder_path = entry_field.get()
-
-        popup, progress_var, progress_bar = helper.progress("move_file", "Moving files...")
-        progress = 0
-        progress_var.set(progress)
-        progress_bar.update()
-        progress_step = float(100.0 / len(selected_items2))
-
-        for each in selected_items2:
-            name = dropbox._files[each]['name']
-            if dropbox._path == "/":
-                path = "/" + name
-            else:
-                path = dropbox._path + "/" + name
-            dropbox.move(path, folder_path + name)
-
-            progress += progress_step
+        dropbox._root.destroy()
+        status = 200
+        if selected_items2 is not None:
+            popup, progress_var, progress_bar = helper.progress("move_file", "Moving files...")
+            progress = 0
             progress_var.set(progress)
             progress_bar.update()
-            newroot.update()
+            progress_step = float(100.0 / len(selected_items2))
 
-            time.sleep(0.1)
+            for each in selected_items2:
+                name = dropbox._files[each]['name']
+                if dropbox._path == "/":
+                    path = "/" + name
+                else:
+                    path = dropbox._path + "/" + name
+                status = dropbox.move(path, folder_path + name)
 
-        popup.destroy()
-        dropbox.list_folder(msg_listbox2)
-        msg_listbox2.yview(tk.END)
+                progress += progress_step
+                progress_var.set(progress)
+                progress_bar.update()
+                newroot.update()
+
+                time.sleep(0.1)
+
+            popup.destroy()
+            dropbox.list_folder(msg_listbox2)
+            msg_listbox2.yview(tk.END)
+            if status == 409:
+                tkinter.messagebox.showinfo('ERROR', 'File already exists in selected directory.')
+        else:
+            tkinter.messagebox.showinfo('ERROR', 'Select at least one file.')
 
     send_button = tk.Button(page, text="Send", command=move)
     send_button.pack()
@@ -217,34 +228,37 @@ def move_file():
 
 def download():
     print("Download file")
-    popup, progress_var, progress_bar = helper.progress("move_file", "Moving files...")
-    progress = 0
-    progress_var.set(progress)
-    progress_bar.update()
-    progress_step = float(100.0 / len(selected_items2))
-    status = 200
-    for each in selected_items2:
-        if status == 200:
-            name = dropbox._files[each]['name']
-            if dropbox._path == "/":
-                path = "/" + name
-                status = dropbox.download(path)
-            else:
-                path = dropbox._path + "/" + name
-                status = dropbox.download(path)
-            if str(dropbox._files[each]['.tag']) == "folder":
-                print("Download zip")
-                status = dropbox.download_zip(path)
-        progress += progress_step
+    if selected_items2 is not None:
+        popup, progress_var, progress_bar = helper.progress("move_file", "Moving files...")
+        progress = 0
         progress_var.set(progress)
         progress_bar.update()
-        newroot.update()
+        progress_step = float(100.0 / len(selected_items2))
+        status = 200
+        for each in selected_items2:
+            if status == 200:
+                name = dropbox._files[each]['name']
+                if dropbox._path == "/":
+                    path = "/" + name
+                    status = dropbox.download(path)
+                else:
+                    path = dropbox._path + "/" + name
+                    status = dropbox.download(path)
+                if str(dropbox._files[each]['.tag']) == "folder":
+                    print("Download zip")
+                    status = dropbox.download_zip(path)
+            progress += progress_step
+            progress_var.set(progress)
+            progress_bar.update()
+            newroot.update()
 
-        time.sleep(0.1)
+            time.sleep(0.1)
+        popup.destroy()
+        dropbox.list_folder(msg_listbox2)
+        msg_listbox2.yview(tk.END)
+    else:
+        tkinter.messagebox.showinfo('ERROR', 'Select at least one file or directory.')
 
-    popup.destroy()
-    dropbox.list_folder(msg_listbox2)
-    msg_listbox2.yview(tk.END)
 
 def add_file_member():
     print("Add file member")
@@ -264,6 +278,8 @@ def add_file_member():
 
     def add_member():
         email = entry_field.get()
+        dropbox._root.destroy()
+        status = 200
 
         popup, progress_var, progress_bar = helper.progress("add_file_member", "Adding member...")
         progress = 0
@@ -277,7 +293,7 @@ def add_file_member():
                 path = "/" + name
             else:
                 path = dropbox._path + "/" + name
-            dropbox.add_file_member(path, email)
+            status = dropbox.add_file_member(path, email)
 
             progress += progress_step
             progress_var.set(progress)
@@ -290,9 +306,16 @@ def add_file_member():
         dropbox.list_folder(msg_listbox2)
         msg_listbox2.yview(tk.END)
 
+        if status == 400:
+            tkinter.messagebox.showinfo('ERROR', 'The email is not valid. Try again.')
+
+
     send_button = tk.Button(page, text="Send", command=add_member)
     send_button.pack()
     dropbox._root = page
+
+##########################################################################################################
+##########################################################################################################
 ##########################################################################################################
 def check_credentials(event= None):
     egela.check_credentials(username, password)
@@ -325,7 +348,7 @@ def on_double_clicking2(event):
     var.set(dropbox._path)
     dropbox.list_folder(msg_listbox2)
 
-##########################################################################################################
+######################################################TKINTER######################################################
 # Login eGela
 root = tk.Tk()
 root.geometry('250x150')
@@ -360,6 +383,7 @@ helper.center(root)
 
 login_frame = tk.Frame(root, padx=10, pady=10)
 login_frame.pack(fill=tk.BOTH, expand=True)
+
 # Login and Authorize in Drobpox
 dropbox = Dropbox.Dropbox(root)
 
@@ -441,9 +465,6 @@ frame2.grid(column=3, row=1, ipadx=10, ipady=10)
 button6 = tk.Button(frame2, borderwidth=4, text="Move file", width=10, pady=8, command=move_file)
 button6.pack(padx=2, pady=2)
 frame2.grid(column=3, row=1, ipadx=10, ipady=10)
-#button8 = tk.Button(frame2, borderwidth=4, text="Download file", width=10, pady=8, command=download)
-#button8.pack(padx=2, pady=2)
-#frame2.grid(column=3, row=1, ipadx=10, ipady=10)
 button7 = tk.Button(frame2, borderwidth=4, text="Share", width=10, pady=8, command=add_file_member)
 button7.pack(padx=2, pady=2)
 frame2.grid(column=3, row=1, ipadx=10, ipady=10)

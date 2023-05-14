@@ -12,13 +12,14 @@ server_addr = "127.0.0.1"
 server_port = 8090
 redirect_uri = "http://" + server_addr + ":" + str(server_port)
 
+
 class Dropbox:
     _access_token = ""
     _path = "/"
     _files = []
     _root = None
     _msg_listbox = None
-    _fkop=0
+    _fkop = 0
 
     def __init__(self, root):
         self._root = root
@@ -40,7 +41,7 @@ class Dropbox:
         print(eskaera)  # zerbitzariak jasotzen duen eskaera
 
         # eskaeran "auth_code"-a bilatu
-        lehenengo_lerroa = eskaera.split('\n')[0]  # eskaera.decode("utf8").split('\n')[0]
+        lehenengo_lerroa = eskaera.split('\n')[0]
         aux_auth_code = lehenengo_lerroa.split(' ')[1]
         auth_code = aux_auth_code[7:].split('&')[0]
         print("auth_code: " + auth_code)
@@ -52,7 +53,8 @@ class Dropbox:
                         "<body>The authentication flow has completed. Close this window.</body>" \
                         "</html>"
 
-        client_connection.sendall(str.encode(http_response))  # client_connection.sendall(http_response.encode(encoding="utf8"))
+        client_connection.sendall(
+            str.encode(http_response))
         client_connection.close()
         server_socket.close()
 
@@ -62,7 +64,7 @@ class Dropbox:
         print('Baimena lortzen...')
         base_uri = "https://www.dropbox.com/oauth2/authorize"
         datuak = {'client_id': app_key,
-                  'redirect_uri': redirect_uri,  # Dirección IP de bucle invertido
+                  'redirect_uri': redirect_uri,  #Dirección IP de bucle invertido
                   'response_type': 'code', }
 
         datuak_kodifikatuta = urllib.parse.urlencode(datuak)
@@ -93,8 +95,9 @@ class Dropbox:
         print("\t\tStatus: " + str(status))
 
         # This endpoint returns a JSON-encoded dictionary
-        # that contains access_token -> The access token to be used to call the Dropbox API. denbora mugatu batean erabili ahalko da (expire_in definitzen den demboran)
-        #  refresh token -> this token is long-lived and won't expire automatically. It can be stored and re-used multiple times.
+        # That contains access_token -> The access token to be used to call the Dropbox API.
+        #           Denbora mugatu batean erabili ahalko da (expire_in definitzen den demboran)
+        # Refresh token -> this token is long-lived and won't expire automatically. It can be stored and re-used multiple times.
 
         edukia = erantzuna.text
         print("\t\tEdukia:")
@@ -107,7 +110,6 @@ class Dropbox:
         self._access_token = access_token
         self._root.destroy()
 
-
     def list_folder(self, msg_listbox, cursor="", edukia_json_entries=[]):
         if self._path == "/":
             self._path = ""
@@ -116,13 +118,10 @@ class Dropbox:
             print("\n/list_folder")
             uri = 'https://api.dropboxapi.com/2/files/list_folder'
             datuak = {'path': self._path, 'recursive': False}
-            # sartu kodea hemen
-            #TODO EN DATOS HACE FALTA ???? "include_mounted_folders": True, "include_non_downloadable_files": True
         else:
             print("\n/list_folder/continue")
             uri = 'https://api.dropboxapi.com/2/files/list_folder/continue'
             datuak = {'cursor': cursor}
-            # sartu kodea hemen
 
         # Call Dropbox API
         goiburuak = {'Host': 'api.dropboxapi.com', 'Authorization': 'Bearer ' + self._access_token,
@@ -132,23 +131,17 @@ class Dropbox:
         response = requests.post(uri, headers=goiburuak, data=datuak_json, allow_redirects=False)
 
         status = response.status_code
-        print("\nStatus: "+str(status)+" "+response.reason)
+        print("\nStatus: " + str(status) + " " + response.reason)
 
         edukia = response.content
         edukia_json = json.loads(edukia)
 
         edukia_json_entries = edukia_json['entries']
-        #for entry in edukia_json['entries']:
-         #   edukia_json_entries.append(entry)
-          #  self._fkop = self._fkop+1
-            #print(str(self._fkop) + '. Fitxategia ------>  ' + entry['name'])
 
         if edukia_json['has_more']:
-            # sartu kodea hemen
             self.list_folder(msg_listbox, edukia_json['cursor'], edukia_json_entries)
         else:
-            # sartu kodea hemen
-            self._fkop=0
+            self._fkop = 0
             self._files = helper.update_listbox2(msg_listbox, self._path, edukia_json_entries)
 
         print('###############################################################################')
@@ -157,13 +150,13 @@ class Dropbox:
 
     def transfer_file(self, file_path, file_data):
         print("\n/upload " + file_path)
-        # sartu kodea hemen
+
         uri = 'https://content.dropboxapi.com/2/files/upload'
-        parameters = {"autorename": True, #estaba en false
-                    "mode": "add",
-                    "mute": False,
-                    "path": file_path,
-                    "strict_conflict": False}
+        parameters = {"autorename": True,  # estaba en false
+                      "mode": "add",
+                      "mute": False,
+                      "path": file_path,
+                      "strict_conflict": False}
 
         json_datuak = json.dumps(parameters)
         goiburuak = {'Host': 'content.dropboxapi.com',
@@ -174,18 +167,16 @@ class Dropbox:
         response = requests.post(uri, headers=goiburuak, data=file_data, allow_redirects=False)
 
         status = response.status_code
-        edukia = response.content
         print("\nStatus: " + str(status) + " " + response.reason)
+
         if status == 200:
             print('###############################################################################')
             print('FITXATEGIAK TRANSFERITU DIRA')
             print('###############################################################################')
 
-
-
     def delete_file(self, file_path):
         print("\n/delete_file " + file_path)
-        # sartu kodea hemen
+
         uri = 'https://api.dropboxapi.com/2/files/delete_v2'
         parameters = {"path": file_path}
         goiburuak = {'Host': 'api.dropboxapi.com',
@@ -195,18 +186,16 @@ class Dropbox:
         response = requests.post(uri, headers=goiburuak, data=data, allow_redirects=False)
 
         status = response.status_code
-        edukia = response.content
         print("\nStatus: " + str(status) + " " + response.reason)
+
         if status == 200:
             print('###############################################################################')
             print('FITXATEGIA EZABATU DA')
             print('###############################################################################')
 
-
-
     def create_folder(self, path):
         print("\n/create_folder " + path)
-        # TODO sartu kodea hemen
+
         uri = 'https://api.dropboxapi.com/2/files/create_folder_v2'
         parameters = {"autorename": False,
                       "path": path}
@@ -217,20 +206,17 @@ class Dropbox:
         response = requests.post(uri, headers=goiburuak, data=data, allow_redirects=False)
 
         status = response.status_code
-        edukia = response.content
         print("\nStatus: " + str(status) + " " + response.reason)
+
         if status == 200:
             print('###############################################################################')
             print('KARPETA SORTU DA')
             print('###############################################################################')
 
-
-
-
-
-#################################### ALDERDI GEHIGARRIAK ################################################
+    #################################### ALDERDI GEHIGARRIAK ################################################
     def download(self, path):
         print("\n/download " + path)
+
         uri = 'https://content.dropboxapi.com/2/files/download'
         parameters = {'path': path}
         data = json.dumps(parameters)
@@ -243,6 +229,7 @@ class Dropbox:
         edukia = response.content
         print("\nStatus: " + str(status) + " " + response.reason)
         print(edukia)
+
         if status == 200:
             with open(path.split('/')[-1], 'wb') as exp_file:
                 exp_file.write(edukia)
@@ -256,6 +243,7 @@ class Dropbox:
 
     def download_zip(self, path):
         print("\n/download_zip " + path)
+
         uri = 'https://content.dropboxapi.com/2/files/download_zip'
         parameters = {"path": path}
         data = json.dumps(parameters)
@@ -267,6 +255,7 @@ class Dropbox:
         status = response.status_code
         edukia = response.content
         print("\nStatus: " + str(status) + " " + response.reason)
+
         if status == 200:
             zip_fitxategia = open(path.split('/')[-1] + '.zip', 'wb')
             zip_fitxategia.write(edukia)
@@ -275,15 +264,15 @@ class Dropbox:
             print('KARPETAREN ZIP-A JEITSI DA')
             print('###############################################################################')
 
-
     def copy(self, fromPath, toPath):
         print("\n/copy_file from " + fromPath + " to " + toPath)
+
         uri = 'https://api.dropboxapi.com/2/files/copy_v2'
         parameters = {"allow_ownership_transfer": False,
-                        "allow_shared_folder": False,
-                        "autorename": False,
-                        "from_path": fromPath,
-                        "to_path": toPath}
+                      "allow_shared_folder": False,
+                      "autorename": False,
+                      "from_path": fromPath,
+                      "to_path": toPath}
         data = json.dumps(parameters)
         goiburuak = {'Host': 'api.dropboxapi.com',
                      'Authorization': 'Bearer ' + self._access_token,
@@ -292,25 +281,26 @@ class Dropbox:
 
         status = response.status_code
         print("\nStatus: " + str(status) + " " + response.reason)
+
         if status == 200:
             print('###############################################################################')
             print('FITXATEGIA KOPIATU DA')
             print('###############################################################################')
         elif status == 409:
             print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-            print('ERRORE BAT SUERTATU DA, KONPROBATU PATH-A ONDO JARRITA DAGOELA (EMANDAKO FORMATOAN)'
-                  '\n BALITEKE ERE KOPIATZEKO FITXATEGIRIK HAUTATU EZ IZANA')
+            print('ERRORE BAT SUERTATU DA')
             print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         return status
 
     def move(self, fromPath, toPath):
         print("\n/move_file from " + fromPath + " to " + toPath)
+
         uri = 'https://api.dropboxapi.com/2/files/move_v2'
         parameters = {"allow_ownership_transfer": False,
-                        "allow_shared_folder": False,
-                        "autorename": False,
-                        "from_path": fromPath,
-                        "to_path": toPath}
+                      "allow_shared_folder": False,
+                      "autorename": False,
+                      "from_path": fromPath,
+                      "to_path": toPath}
         data = json.dumps(parameters)
         goiburuak = {'Host': 'api.dropboxapi.com',
                      'Authorization': 'Bearer ' + self._access_token,
@@ -318,34 +308,33 @@ class Dropbox:
         response = requests.post(uri, headers=goiburuak, data=data, allow_redirects=False)
 
         status = response.status_code
-        edukia = response.content
         print("\nStatus: " + str(status) + " " + response.reason)
+
         if status == 200:
             print('###############################################################################')
             print('FITXATEGIA MUGITU DA')
             print('###############################################################################')
         elif status == 409:
             print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-            print('ERRORE BAT SUERTATU DA, KONPROBATU PATH-A ONDO JARRITA DAGOELA (EMANDAKO FORMATOAN)'
-                  '\n BALITEKE ERE MUGITZEKO FITXATEGIRIK HAUTATU EZ IZANA')
+            print('ERRORE BAT SUERTATU DA')
             print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         return status
 
-
-    def add_file_member(self, path, email): #TODO
+    def add_file_member(self, path, email):
         print("\n/add_file_member " + path)
+
         uri = 'https://api.dropboxapi.com/2/sharing/add_file_member'
         parameters = {"access_level": "viewer",
-                        "add_message_as_comment": False,
-                        "custom_message": "Here is my doc:",
-                        "file": path,
-                        "members": [
-                            {
-                                ".tag": "email",
-                                "email": email
-                            }
-                        ],
-                        "quiet": False}
+                      "add_message_as_comment": False,
+                      "custom_message": "Here is my doc:",
+                      "file": path,
+                      "members": [
+                          {
+                              ".tag": "email",
+                              "email": email
+                          }
+                      ],
+                      "quiet": False}
         data = json.dumps(parameters)
         goiburuak = {'Host': 'api.dropboxapi.com',
                      'Authorization': 'Bearer ' + self._access_token,
@@ -356,8 +345,13 @@ class Dropbox:
         edukia = response.content
         print("\nStatus: " + str(status) + " " + response.reason)
         print(edukia)
+
         if status == 200:
             print('###############################################################################')
             print('PARTEKATU DA FITXATEGIA')
             print('###############################################################################')
-
+        elif status == 400:
+            print('###############################################################################')
+            print('SARTUTAKO EMAILA EZ DA ZUZENA')
+            print('###############################################################################')
+        return status
