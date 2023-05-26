@@ -65,7 +65,7 @@ class Dropbox:
         base_uri = "https://www.dropbox.com/oauth2/authorize"
         datuak = {'client_id': app_key,
                   'redirect_uri': redirect_uri,  #Dirección IP de bucle invertido
-                  'response_type': 'code', }
+                  'response_type': 'code'}
 
         datuak_kodifikatuta = urllib.parse.urlencode(datuak)
         auth_uri = base_uri + '?' + datuak_kodifikatuta

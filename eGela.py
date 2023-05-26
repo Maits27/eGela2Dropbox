@@ -220,11 +220,14 @@ class eGela:
 
         response = requests.request(metodoa, self._ikasgaia, headers=goiburua, data=edukia,
                                     allow_redirects=False)
+        print(self._ikasgaia +" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
         orria = BeautifulSoup(response.content, 'html.parser')
         link_zerrenda = orria.find_all('img', {'class': 'iconlarge activityicon'})
 
         progress_step = float(100.0 / len(link_zerrenda))
+
+        print(self._ikasgaia)
 
         for link in link_zerrenda:
             if '/pdf' in link['src']:
@@ -241,7 +244,7 @@ class eGela:
                 for a in a_zerrenda:
                     pdf_file = a.find_all('a')[0]['href']
                     pdf_name = pdf_file.split('/')[-1]
-                    self._refs.append({'pdf_link': pdf_file, 'pdf_name':pdf_name})
+                    self._refs.append({'pdf_link': pdf_file, 'pdf_name': pdf_name})
 
             progress += progress_step
             progress_var.set(progress)

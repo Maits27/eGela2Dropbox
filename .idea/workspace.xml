@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b7d79ad3-e979-4ee9-9a1a-fea693ec08eb" name="Changes" comment="share + download">
+    <list default="true" id="b7d79ad3-e979-4ee9-9a1a-fea693ec08eb" name="Changes" comment="Amaituta">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dropbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dropbox.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eGela.py" beforeDir="false" afterPath="$PROJECT_DIR$/eGela.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zeregina4.py" beforeDir="false" afterPath="$PROJECT_DIR$/zeregina4.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,19 +23,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/maiti/PycharmProjects/eGela2Dropbox&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/maiti/PycharmProjects/GoogleDrive",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\maiti\PycharmProjects\eGela2Dropbox_ikasleak" />
@@ -124,7 +123,15 @@
       <workItem from="1683835939279" duration="1130000" />
       <workItem from="1683878378687" duration="4638000" />
       <workItem from="1683895951152" duration="1328000" />
-      <workItem from="1684079071902" duration="4250000" />
+      <workItem from="1684079071902" duration="4427000" />
+      <workItem from="1684148608113" duration="2860000" />
+      <workItem from="1684313135023" duration="106000" />
+      <workItem from="1684314534240" duration="761000" />
+      <workItem from="1684580727459" duration="273000" />
+      <workItem from="1684581288272" duration="612000" />
+      <workItem from="1684582683010" duration="400000" />
+      <workItem from="1684679239194" duration="988000" />
+      <workItem from="1684929062609" duration="39000" />
     </task>
     <task id="LOCAL-00001" summary="change">
       <created>1683552038488</created>
@@ -182,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683897267688</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Amaituta">
+      <created>1684083426444</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1684083426444</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,10 +220,11 @@
     <MESSAGE value="funciona mio" />
     <MESSAGE value="share" />
     <MESSAGE value="share + download" />
-    <option name="LAST_COMMIT_MESSAGE" value="share + download" />
+    <MESSAGE value="Amaituta" />
+    <option name="LAST_COMMIT_MESSAGE" value="Amaituta" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/eGela2Dropbox$Dropbox.coverage" NAME="Dropbox Coverage Results" MODIFIED="1683394993758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/eGela2Dropbox$zeregina4.coverage" NAME="zeregina4 Coverage Results" MODIFIED="1684083342112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/eGela2Dropbox$zeregina4.coverage" NAME="zeregina4 Coverage Results" MODIFIED="1684580821807" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
